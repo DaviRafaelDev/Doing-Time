@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://badotm8veo77"]
+
+[ext_resource type="Script" path="res://src/player_mov.gd" id="1_mwkd6"]
+[ext_resource type="Script" path="res://src/toggle.gd" id="2_wk8da"]
+[ext_resource type="AudioStream" uid="uid://dudhwv6hg57s5" path="res://assets/y2meta.com-Flashlight-Sound-Effect-sfx-_192-kbps_.wav" id="3_a1biu"]
+[ext_resource type="AudioStream" uid="uid://c236h8cmf8t3r" path="res://assets/concrete-footsteps-6752.wav" id="4_6r887"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_byrw5"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_fucuc"]
+
+[node name="player" type="CharacterBody3D"]
+script = ExtResource("1_mwkd6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_byrw5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("CapsuleMesh_fucuc")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.70641, 0)
+
+[node name="Camera" type="Camera3D" parent="Head"]
+
+[node name="HandLoc" type="Node3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.045, -0.215, 0.355)
+
+[node name="Hand" type="Node3D" parent="Head"]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Head/Hand"]
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 4.0
+shadow_enabled = true
+distance_fade_enabled = true
+spot_range = 25.0
+spot_angle = 25.0
+script = ExtResource("2_wk8da")
+
+[node name="Click" type="AudioStreamPlayer3D" parent="Head/Hand/SpotLight3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0307822, 0.07286)
+stream = ExtResource("3_a1biu")
+volume_db = -35.0
+
+[node name="Footsteps" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.93531, -0.284012)
+stream = ExtResource("4_6r887")
+volume_db = -25.0
